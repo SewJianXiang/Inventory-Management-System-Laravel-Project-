@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/stocks', [StockController::class, 'index'])->name('stocks.index');
+Route::get('/stocks', [StockController::class, 'index'])->name('stocks');
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -20,6 +20,10 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/stocks', function () {
+        return view('stock');
+    })->name('stocks');
 
     Route::get('/dashboard', function () {
         return view('dashboard');

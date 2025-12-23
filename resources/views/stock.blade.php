@@ -145,41 +145,31 @@
                     </tr>
                 </thead>
 
-                <tbody>
-                @foreach ($stocks as $stock)
-                    <tr class="border-b hover:bg-slate-50">
-                        <td class="p-3">{{ $stock->id }}</td>
-                        <td class="p-3">{{ $stock->product_name }}</td>
-                        <td class="p-3">{{ $stock->category }}</td>
-                        <td class="p-3">{{ $stock->quantity }}</td>
-                        <td class="p-3">{{ number_format($stock->price, 2) }}</td>
-
-                        <td class="p-3">
-                            @if ($stock->quantity > 10)
-                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
-                                    In Stock
-                                </span>
-                            @elseif ($stock->quantity > 0)
-                                <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
-                                    Low
-                                </span>
-                            @else
-                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">
-                                    Out
-                                </span>
-                            @endif
-                        </td>
-
-                        <td class="p-3 space-x-2">
-                            <button class="bg-yellow-400 px-3 py-1 rounded hover:bg-yellow-500">
-                                Edit
-                            </button>
-                            <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                @endforeach
+               <tbody>
+                @isset($stocks)
+                    @foreach ($stocks as $stock)
+                        <tr class="border-b hover:bg-slate-50">
+                            <td class="p-3">{{ $stock->id }}</td>
+                            <td class="p-3">{{ $stock->product_name }}</td>
+                            <td class="p-3">{{ $stock->category }}</td>
+                            <td class="p-3">{{ $stock->quantity }}</td>
+                            <td class="p-3">{{ number_format($stock->price, 2) }}</td>
+                            <td class="p-3">
+                                @if ($stock->quantity > 10)
+                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">In Stock</span>
+                                @elseif ($stock->quantity > 0)
+                                    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">Low</span>
+                                @else
+                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">Out</span>
+                                @endif
+                            </td>
+                            <td class="p-3 space-x-2">
+                                <button class="bg-yellow-400 px-3 py-1 rounded hover:bg-yellow-500">Edit</button>
+                                <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endisset
                 </tbody>
 
             </table>
