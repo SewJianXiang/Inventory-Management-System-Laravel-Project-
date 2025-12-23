@@ -36,8 +36,8 @@
         <a href="#" class="hover:text-white">Pricing</a>
         <a href="#" class="hover:text-white">Features</a>
         <a href="#" class="hover:text-white">Panel</a>
-        <a href="{{ route('login') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-full font-medium">
-            Login
+        <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-full font-medium">
+            Get Started
         </a>
     </div>  
 </nav>
@@ -56,7 +56,7 @@
     </p>
 
     <div class="flex justify-center gap-4">
-        <a href="{{ route('register') }}" class="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-full font-medium">
+        <a href="#" class="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-full font-medium">
             Get started
         </a>
         <a href="#" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full font-medium">

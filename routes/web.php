@@ -4,7 +4,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('home');
 });
 

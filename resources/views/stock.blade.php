@@ -18,17 +18,20 @@
     <div class="flex items-center space-x-4">
         
 
-        <img src="https://ui-avatars.com/api/?name=John+Doe"
+        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}"
              class="w-9 h-9 rounded-full border">
 
         <span class="text-sm font-medium">
-            John Doe
+            {{ Auth::user()->name }}
         </span>
         <!-- Logout Button -->
-            <button
+        <form method="POST" action="{{ route('logout') }}" class="inline">
+            @csrf
+            <button type="submit"
                 class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
                 Logout
             </button>
+        </form>
 
     </div>
 </nav>
