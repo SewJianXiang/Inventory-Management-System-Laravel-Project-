@@ -17,17 +17,29 @@
   <div class="min-h-screen bg-gray-100">
     <!-- Auth Pages -->
     <div class="min-h-screen flex">
-      <!-- Left Side - Auth Forms -->
-      <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
+
+    <!-- Left Side - Image -->
+      <div
+        class="hidden lg:block lg:w-3/5 bg-cover bg-center"
+        style="background-image: url('https://images.pexels.com/photos/4277794/pexels-photo-4277794.jpeg')"
+      >
+        <div class="h-full bg-black bg-opacity-50 flex items-center justify-center">
+          <div class="text-center text-white px-12">
+            <h2 class="text-4xl font-bold mb-6">Stock Management</h2>
+            <p class="text-xl">Manage your inventory efficiently and effectively.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side - Auth Forms -->
+      <div class="w-full bg-white lg:w-2/5 flex items-center justify-center p-8">
         <div class="w-full max-w-md">
           <!-- Form Container -->
-          <div class="bg-white rounded-2xl shadow-xl p-8">
-            <!-- Logo -->
-            <div class="text-center mb-8">
-              <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
-                <i class="fas fa-user-plus text-red-600 fa-lg"></i>
+            <div class="text-center mb-4">
+              <div class="inline-flex items-center justify-center w-20 h-20 bg-red-100 rounded-full mb-4">
+                <i class="fas fa-user-plus text-red-600 fa-xl"></i>
               </div>
-              <h2 class="text-2xl font-bold text-gray-800">
+              <h2 class="text-3xl font-bold text-gray-800">
                 Create Account
               </h2>
               <p class="text-gray-600 mt-2">
@@ -38,91 +50,93 @@
             <!-- Form -->
             <form method="POST" action="{{ route('register') }}">
               @csrf
-              @if ($errors->any())
-                <div class="mb-6 text-red-600">
-                  <ul>
-                    @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                    @endforeach
-                  </ul>
-                </div>
-              @endif
-
               <!-- Name Field -->
               <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                <div class="relative">
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value="{{ old('name') }}"
-                    required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-colors"
-                    placeholder="John Doe"
-                  />
-                </div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                  <div class="relative">
+                      <input
+                          type="text"
+                          name="name"
+                          id="name"
+                          value="{{ old('name') }}"
+                          required
+                          class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-colors @error('name') border-red-600 @enderror"
+                          placeholder="John Doe"
+                      />
+                  </div>
+                  @error('name')
+                      <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                  @enderror
               </div>
 
               <!-- Email Field -->
               <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                <div class="relative">
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value="{{ old('email') }}"
-                    required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-colors"
-                    placeholder="you@example.com"
-                  />
-                  <i class="fas fa-envelope absolute right-2 top-4 w-6 h-6 text-gray-400"></i>
-                </div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                  <div class="relative">
+                      <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          value="{{ old('email') }}"
+                          required
+                          class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-colors @error('email') border-red-600 @enderror"
+                          placeholder="you@example.com"
+                      />
+                      <i class="fas fa-envelope absolute right-2 top-4 w-6 h-6 text-gray-400"></i>
+                  </div>
+                  @error('email')
+                      <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                  @enderror
               </div>
 
               <!-- Password Field -->
               <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                <div class="relative">
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-colors"
-                    placeholder="••••••••"
-                  />
-                  <button
-                    type="button"
-                    class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                    onclick="togglePassword()"
-                  >
-                    <i id="password-icon" class="fas fa-eye w-6 h-6"></i>
-                  </button>
-                </div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                  <div class="relative">
+                      <input
+                          type="password"
+                          name="password"
+                          id="password"
+                          required
+                          class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-colors @error('password') border-red-600 @enderror"
+                          placeholder="••••••••"
+                      />
+                      <button
+                          type="button"
+                          class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                          onclick="togglePassword()"
+                      >
+                          <i id="password-icon" class="fas fa-eye w-6 h-6"></i>
+                      </button>
+                  </div>
+                  @error('password')
+                      <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                  @enderror
               </div>
 
               <!-- Confirm Password Field -->
               <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
-                <div class="relative">
-                  <input
-                    type="password"
-                    name="password_confirmation"
-                    id="password_confirmation"
-                    required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-colors"
-                    placeholder="••••••••"
-                  />
-                  <button
-                    type="button"
-                    class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                    onclick="toggleConfirmPassword()"
-                  >
-                    <i id="confirm-password-icon" class="fas fa-eye w-6 h-6"></i>
-                  </button>
-                </div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                  <div class="relative">
+                      <input
+                          type="password"
+                          name="password_confirmation"
+                          id="password_confirmation"
+                          required
+                          class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-colors @error('password_confirmation') border-red-600 @enderror"
+                          placeholder="••••••••"
+                      />
+                      <button
+                          type="button"
+                          class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                          onclick="toggleConfirmPassword()"
+                      >
+                          <i id="confirm-password-icon" class="fas fa-eye w-6 h-6"></i>
+                      </button>
+                  </div>
+                  @error('password_confirmation')
+                      <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                  @enderror
               </div>
 
               <!-- Submit Button -->
@@ -141,22 +155,9 @@
                 </a>
               </p>
             </form>
-          </div>
         </div>
       </div>
 
-      <!-- Right Side - Image -->
-      <div
-        class="hidden lg:block lg:w-1/2 bg-cover bg-center"
-        style="background-image: url('https://images.pexels.com/photos/4277794/pexels-photo-4277794.jpeg')"
-      >
-        <div class="h-full bg-black bg-opacity-50 flex items-center justify-center">
-          <div class="text-center text-white px-12">
-            <h2 class="text-4xl font-bold mb-6">Stocky Management</h2>
-            <p class="text-xl">Manage your inventory efficiently and effectively.</p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
