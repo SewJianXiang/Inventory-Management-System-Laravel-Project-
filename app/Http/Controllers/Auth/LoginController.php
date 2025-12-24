@@ -25,7 +25,7 @@ class LoginController extends Controller
             }
         }
 
-        return back()->withErrors(['email' => 'Invalid credentials']);
+        return back()->withErrors(['email' => 'Incorrect email or password. Please try again.']);
     }
 
     public function logout(Request $request)
