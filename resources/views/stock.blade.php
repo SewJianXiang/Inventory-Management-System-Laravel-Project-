@@ -6,6 +6,8 @@
 
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </head>
 
 <body class="bg-slate-100 min-h-screen flex flex-col">
@@ -86,28 +88,87 @@
         <h1 class="text-3xl font-bold mb-6">📦 Stock Management</h1>
 
         <!-- Add Stock -->
-        <div class="bg-white rounded-xl shadow p-6 mb-8">
-            <h2 class="text-xl font-semibold mb-4">Add New Stock</h2>
+        <div class="bg-white rounded-xl shadow p-6 mb-8"
+                x-data="{ showCreate: false }">
+                
+                <h2 class="text-xl font-semibold mb-4">Product Management</h2>
 
-            <form class="grid grid-cols-5 gap-4">
-                <input type="text" placeholder="Product Name"
-                    class="border rounded-lg px-3 py-2">
 
-                <input type="text" placeholder="Category"
-                    class="border rounded-lg px-3 py-2">
+            <td class="p-3 space-x-2">
+    <td class="p-0">
+    
+    <div x-data="{ showCreate: false }">
 
-                <input type="number" placeholder="Quantity"
-                    class="border rounded-lg px-3 py-2">
+    <!-- Product Management -->
+    <div x-data="{ showCreate: false }">
 
-                <input type="number" placeholder="Price (RM)"
-                    class="border rounded-lg px-3 py-2">
+    <!-- PRODUCT MANAGEMENT -->
+    <div class="bg-white rounded-xl shadow p-6 mb-6">
+        <div class="grid grid-cols-4 gap-2">
+            <button
+                 @click="showCreate = !showCreate"
+                class="flex items-center justify-center bg-green-100 text-green-700 hover:bg-green-200 py-3 rounded">
+                ➕ Create
+            </button>
 
-                <button class="bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                    ➕ Add
-                </button>
-            </form>
+            <button class="flex items-center justify-center bg-yellow-100 text-yellow-700 hover:bg-yellow-200 py-3 rounded">
+                ✏ Edit
+            </button>
+
+            <button class="flex items-center justify-center bg-orange-100 text-orange-700 hover:bg-orange-200 py-3 rounded">
+                ⚠ Restock
+            </button>
+
+            <button class="flex items-center justify-center bg-red-100 text-red-700 hover:bg-red-200 py-3 rounded">
+                🗑 Delete
+            </button>
         </div>
-        <div class="bg-white rounded-xl shadow p-6 mb-8">
+    </div>
+
+</td>
+        <!-- CREATE FORM -->
+     <div x-show="showCreate"
+         x-transition
+         x-cloak
+         class="bg-white rounded-xl shadow p-6 mb-6">
+
+        <h2 class="text-xl font-semibold mb-4">Create New Stock</h2>
+
+        <form method="POST" action="{{ route('stocks.store') }}" class="grid grid-cols-2 gap-4">
+            @csrf
+
+            <input type="text" name="product_name" placeholder="Product Name"
+                   class="border rounded px-3 py-2 col-span-2" required>
+
+            <input type="text" name="category" placeholder="Category"
+                   class="border rounded px-3 py-2" required>
+
+            <input type="number" name="quantity" placeholder="Quantity"
+                   class="border rounded px-3 py-2" required>
+
+            <input type="number" step="0.01" name="price" placeholder="Price"
+                   class="border rounded px-3 py-2 col-span-2" required>
+
+            <div class="col-span-2 flex gap-2">
+                <button type="submit"
+                        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                    Save
+                </button>
+
+                <button type="button"
+                        @click="showCreate = false"
+                        class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    
+
+        </div>
+        <div x-show="!showCreate"
+            x-transition
+            x-cloak
+            class="bg-white rounded-xl shadow p-6">
             <!-- Search & Filter -->
         <div class="bg-white rounded-xl shadow p-4 mb-6 flex flex-wrap gap-4 items-center justify-between">
 
@@ -129,9 +190,13 @@
             </div>
                 </div>
         <!-- Stock Table -->
-        <div class="bg-white rounded-xl shadow p-6">
-            <h2 class="text-xl font-semibold mb-4">Stock List</h2>
-
+       <div x-show="!showCreate"
+            x-transition
+            x-cloak
+            class="bg-white rounded-xl shadow p-6">
+                
+                <h2 class="text-xl font-semibold mb-4">Stock List</h2>
+            <!-- CREATE FORM -->
             <table class="w-full text-center">
                 <thead class="bg-blue-600 text-white">
                     <tr>
@@ -141,38 +206,33 @@
                         <th class="p-3">Qty</th>
                         <th class="p-3">Price</th>
                         <th class="p-3">Status</th>
-                        <th class="p-3">Action</th>
+    
                     </tr>
                 </thead>
 
                <tbody>
-                @isset($stocks)
-                    @foreach ($stocks as $stock)
-                        <tr class="border-b hover:bg-slate-50">
-                            <td class="p-3">{{ $stock->id }}</td>
-                            <td class="p-3">{{ $stock->product_name }}</td>
-                            <td class="p-3">{{ $stock->category }}</td>
-                            <td class="p-3">{{ $stock->quantity }}</td>
-                            <td class="p-3">{{ number_format($stock->price, 2) }}</td>
-                            <td class="p-3">
-                                @if ($stock->quantity > 10)
-                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">In Stock</span>
-                                @elseif ($stock->quantity > 0)
-                                    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">Low</span>
-                                @else
-                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">Out</span>
-                                @endif
-                            </td>
-                            <td class="p-3 space-x-2">
-                                <button class="bg-yellow-400 px-3 py-1 rounded hover:bg-yellow-500">Edit</button>
-                                <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete</button>
-                            </td>
-                        </tr>
-                    @endforeach
-                @endisset
-                </tbody>
+        @foreach ($products as $product)
+            <tr class="border-b hover:bg-slate-50">
+                <td class="p-3">{{ $product->id }}</td>
+                <td class="p-3">{{ $product->product_name }}</td>
+                <td class="p-3">{{ $product->category }}</td>
+                <td class="p-3">{{ $product->quantity }}</td>
+                <td class="p-3">{{ number_format($product->price, 2) }}</td>
+                <td class="p-3">
+                    @if ($product->quantity > 10)
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">In Stock</span>
+                    @elseif ($product->quantity > 0)
+                        <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">Low</span>
+                    @else
+                        <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">Out</span>
+                    @endif
+                </td>
+            </tr>
+        @endforeach
+</tbody>
 
             </table>
+        </div>
         </div>
 
     </main>

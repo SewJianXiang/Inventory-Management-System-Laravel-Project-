@@ -3,12 +3,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-
+use App\Http\Controllers\ProductController;
 Route::get('/', function () {
     return view('home');
 });
-
-Route::get('/stocks', [StockController::class, 'index'])->name('stocks');
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -18,12 +16,16 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
+// Product Management Routes
+Route::get('/stocks', [ProductController::class, 'index'])->name('stocks.index');
+Route::post('/stocks', [ProductController::class, 'store'])->name('stocks.store');
+
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/stocks', function () {
-        return view('stock');
-    })->name('stocks');
+    // Route::get('/stocks', function () {
+    //     return view('stock');
+    // })->name('stocks');
 
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -32,7 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/inventory', function () {
         return view('inventory');
     })->name('inventory');
-
+    
     // Admin only routes
     Route::middleware(['admin'])->group(function () {
 
