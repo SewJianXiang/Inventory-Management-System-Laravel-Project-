@@ -84,7 +84,7 @@
 
     <!-- ===== MAIN CONTENT ===== -->
     <main class="flex-1 p-8">
-
+        @yield('content')  <!-- Child pages will inject content here -->
         <h1 class="text-3xl font-bold mb-6">📦 Stock Management</h1>
 
         <!-- Add Stock -->
@@ -110,15 +110,6 @@
                 class="flex items-center justify-center bg-green-100 text-green-700 hover:bg-green-200 py-3 rounded">
                 ➕ Create
             </button>
-
-            <button class="flex items-center justify-center bg-yellow-100 text-yellow-700 hover:bg-yellow-200 py-3 rounded">
-                ✏ Edit
-            </button>
-
-            <button class="flex items-center justify-center bg-orange-100 text-orange-700 hover:bg-orange-200 py-3 rounded">
-                ⚠ Restock
-            </button>
-
             <button class="flex items-center justify-center bg-red-100 text-red-700 hover:bg-red-200 py-3 rounded">
                 🗑 Delete
             </button>
@@ -134,7 +125,7 @@
 
         <h2 class="text-xl font-semibold mb-4">Create New Stock</h2>
 
-        <form method="POST" action="{{ route('stocks.store') }}" class="grid grid-cols-2 gap-4">
+        <form method="POST" action="{{ route('stocks.store') }}" enctype="multipart/form-data" class="grid grid-cols-2 gap-4">
             @csrf
 
             <input type="text" name="product_name" placeholder="Product Name"
@@ -142,6 +133,9 @@
 
             <input type="text" name="category" placeholder="Category"
                    class="border rounded px-3 py-2" required>
+
+            <input type="file" name="image" accept="image/*" 
+            class="border px-3 py-2 col-span-2" required>
 
             <input type="number" name="quantity" placeholder="Quantity"
                    class="border rounded px-3 py-2" required>
@@ -201,12 +195,14 @@
                 <thead class="bg-blue-600 text-white">
                     <tr>
                         <th class="p-3">ID</th>
+                        <th class="p-3">Image</th>
                         <th class="p-3">Product</th>
                         <th class="p-3">Category</th>
                         <th class="p-3">Qty</th>
                         <th class="p-3">Price</th>
                         <th class="p-3">Status</th>
-    
+                        <th class="p-3">Action</th>
+                         <th class="p-3">Created By</th>
                     </tr>
                 </thead>
 
@@ -214,6 +210,13 @@
         @foreach ($products as $product)
             <tr class="border-b hover:bg-slate-50">
                 <td class="p-3">{{ $product->id }}</td>
+                <td class="p-3 flex justify-center items-center">
+                    @if($product->image)
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image" class="w-30 h-20 object-cover rounded">
+                    @else
+                        N/A
+                    @endif
+                </td>
                 <td class="p-3">{{ $product->product_name }}</td>
                 <td class="p-3">{{ $product->category }}</td>
                 <td class="p-3">{{ $product->quantity }}</td>
@@ -227,7 +230,11 @@
                         <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">Out</span>
                     @endif
                 </td>
-            </tr>
+                <td class="p-3">
+                   <a href="{{ route('products.show', $product->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+                            View
+                        </a>
+                     <td>{{ $product->created_by }}</td>
         @endforeach
 </tbody>
 

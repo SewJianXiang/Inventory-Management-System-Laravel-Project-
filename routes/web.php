@@ -10,7 +10,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/stocks', [StockController::class, 'index'])->name('stocks.index');
+
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
@@ -24,17 +24,16 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-// Product Management Routes
-Route::get('/stocks', [ProductController::class, 'index'])->name('stocks.index');
-Route::post('/stocks', [ProductController::class, 'store'])->name('stocks.store');
 
+
+
+// Product Management Routes
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
-    // Route::get('/stocks', function () {
-    //     return view('stock');
-    // })->name('stocks');
-
+    Route::get('/stocks', [ProductController::class, 'index'])->name('stocks.index');
+    Route::post('/stocks', [ProductController::class, 'store'])->name('stocks.store');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -43,6 +42,13 @@ Route::middleware(['auth'])->group(function () {
         return view('inventory');
     })->name('inventory');
     
+    // Edit And Delete Routes
+    Route::put('/products/{product}', [ProductController::class, 'update'])
+     ->name('products.update');
+
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])
+     ->name('products.destroy');
+
     // Admin only routes
     Route::middleware(['admin'])->group(function () {
 
