@@ -6,13 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {   
-      public function index(){
+      public function index(Request $request)
+    {
+        $search = $request->query('search');
 
-    $products = Product::latest()->get();
-    $products = Product::orderBy('id', 'asc')->get(); // fetch all products
-    return view('stock', compact('products')); // pass $products to Blade
-    
+        $productsQuery = Product::query();
+
+        if ($search) {
+            $productsQuery->where('product_name', 'LIKE', "%{$search}%")
+                          ->orWhere('category', 'LIKE', "%{$search}%");
         }
+
+        $products = $productsQuery->orderBy('id', 'asc')->get(); // fetch filtered products
+
+        return view('stock', compact('products')); // pass $products to Blade
+    }
 
     public function store(Request $request)
     {
