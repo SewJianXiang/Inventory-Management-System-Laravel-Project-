@@ -21,6 +21,50 @@
             }
         }
     </script>
+
+        <style>
+            @keyframes float1 {
+                0% { transform: translate(0, 0); }
+                50% { transform: translate(50px, 100px); }
+                100% { transform: translate(0, 0); }
+            }
+            @keyframes float2 {
+                0% { transform: translate(0, 0); }
+                50% { transform: translate(-80px, 150px); }
+                100% { transform: translate(0, 0); }
+            }
+            @keyframes float3 {
+                0% { transform: translate(0, 0); }
+                50% { transform: translate(60px, -120px); }
+                100% { transform: translate(0, 0); }
+            }
+            @keyframes float4 {
+                0% { transform: translate(0, 0); }
+                50% { transform: translate(80px, -140px); }
+                100% { transform: translate(0, 0); }
+            }
+
+            .animate-ball1 {
+                animation: float1 12s ease-in-out infinite alternate;
+                top: 20%;
+                left: 10%;
+            }
+            .animate-ball2 {
+                animation: float2 15s ease-in-out infinite alternate;
+                top: 40%;
+                left: 70%;
+            }
+            .animate-ball3 {
+                animation: float3 18s ease-in-out infinite alternate;
+                top: 60%;
+                left: 30%;
+            }
+            .animate-ball4 {
+                animation: float3 200s ease-in-out infinite alternate;
+                top: 70%;
+                left: 20%;
+            }
+</style>
 </head>
 <body class="bg-gradient-to-b from-[#0b1020] via-[#050816] to-black text-white font-sans">
 
@@ -35,35 +79,47 @@
         <a href="#" class="hover:text-white">About</a>
         <a href="#" class="hover:text-white">Pricing</a>
         <a href="#" class="hover:text-white">Features</a>
-        <a href="#" class="hover:text-white">Panel</a>
+        <a href="{{ route('stocks.index') }}" class="hover:text-white">Panel</a>
         <a href="{{ route('login') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-full font-medium">
             Get Started
         </a>
-    </div>
+    </div>  
 </nav>
 
 <!-- ================= HERO ================= -->
-<section class="w-full min-h-screen flex flex-col justify-center items-center text-center px-6 bg-gradient-to-b from-[#0b1020] via-[#050816] to-black">
+<section class="relative w-full min-h-screen flex flex-col justify-center items-center text-center px-6 overflow-hidden">
 
-    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-        Providing the brand new  <br>
+    <!-- Floating Balls Background -->
+    <div class="absolute inset-0 -z-10">
+        <!-- Ball 1 -->
+        <div class="absolute w-40 h-40 bg-purple-500 rounded-full opacity-30 blur-2xl animate-ball1"></div>
+        <!-- Ball 2 -->
+        <div class="absolute w-60 h-60 bg-pink-500 rounded-full opacity-20 blur-3xl animate-ball2"></div>
+        <!-- Ball 3 -->
+        <div class="absolute w-32 h-32 bg-indigo-400 rounded-full opacity-25 blur-2xl animate-ball3"></div>
+        <!-- Ball 4 -->
+        <div class="absolute w-50 h-50 bg-cyan-400 rounded-full opacity-35 blur-2xl animate-ball3"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 drop-shadow-lg text-white">
+        Providing the brand new <br>
         Stock Management
     </h1>
 
-    <p class="text-slate-400 max-w-2xl mx-auto mb-10 text-lg">
+    <p class="text-slate-200 max-w-2xl mx-auto mb-10 text-lg drop-shadow-md">
         Trouble with Stock Management? <br>
         Our System will help you manage your stock easily and effectively.
     </p>
 
     <div class="flex justify-center gap-4">
-        <a href="{{ route('login') }}" class="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-full font-medium">
+        <a href="{{ route('login') }}" class="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-full font-medium shadow-lg transition">
             Get started
         </a>
-        <a href="#" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full font-medium">
+        <a href="#" class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-full font-medium shadow-lg transition">
             Learn more
         </a>
     </div>
-
 </section>
 
 <!-- ================= FEATURES ================= -->

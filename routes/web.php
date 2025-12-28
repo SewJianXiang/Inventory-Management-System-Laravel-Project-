@@ -3,13 +3,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/stocks', [StockController::class, 'index'])->name('stocks.index');
+
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
@@ -23,9 +24,16 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
+
+
+
+// Product Management Routes
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
+    Route::get('/stocks', [ProductController::class, 'index'])->name('stocks.index');
+    Route::post('/stocks', [ProductController::class, 'store'])->name('stocks.store');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -33,6 +41,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/inventory', function () {
         return view('inventory');
     })->name('inventory');
+    
+    // Edit And Delete Routes
+    Route::put('/products/{product}', [ProductController::class, 'update'])
+     ->name('products.update');
+
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])
+     ->name('products.destroy');
 
     // Admin only routes
     Route::middleware(['admin'])->group(function () {
