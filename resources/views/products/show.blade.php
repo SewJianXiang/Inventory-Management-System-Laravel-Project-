@@ -7,7 +7,16 @@
 <div class="bg-slate-100 min-h-screen p-8">
     <!-- Product View Section -->
     <div id="productView">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-6 rounded-xl shadow">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-6 rounded-xl shadow relative">
+            <!-- Back to Products (inside card, top-right) -->
+            <a href="{{ route('stocks.index') }}"
+               class="absolute top-4 right-4 inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Products
+            </a>
             <!-- Product Image -->
             <div>
                 <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/400' }}" 
@@ -57,18 +66,6 @@
                             Delete
                         </button>
                     </form>
-                    <!-- Back to Products -->
-                    <a href="{{ route('stocks.index') }}"
-                    class="inline-flex items-center gap-2 mb-4 text-blue-600 hover:text-blue-800 font-medium">
-                        
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 19l-7-7 7-7" />
-                        </svg>
-
-                        Back to Products
-                    </a>
-
                 </div>
             </div>
         </div>
