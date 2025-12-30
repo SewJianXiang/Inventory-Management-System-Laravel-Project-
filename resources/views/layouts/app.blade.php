@@ -36,9 +36,9 @@
             <div class="p-6 font-semibold text-lg border-b">Menu</div>
             <nav class="p-4 space-y-2">
                 <a class="block px-4 py-2 rounded-lg bg-blue-100 text-blue-700 font-semibold">📊 Dashboard</a>
-                <a class="block px-4 py-2 rounded-lg hover:bg-slate-100">📦 Stock</a>
+                <a class="block px-4 py-2 rounded-lg hover:bg-slate-100">📦 Stock</a> 
                 <a class="block px-4 py-2 rounded-lg hover:bg-slate-100">🗂 Categories</a>
-                <a class="block px-4 py-2 rounded-lg hover:bg-slate-100">📈 Reports</a>
+                <a href="{{ route('products.histories') }}" class="block px-4 py-2 rounded-lg hover:bg-slate-100">📈 History</a>
                 <a class="block px-4 py-2 rounded-lg hover:bg-slate-100">⚙ Setting</a>
             </nav>
         </aside>

@@ -30,6 +30,11 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Product Management Routes
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
+    // Put static history routes before dynamic product routes so '/products/history' isn't captured as a product id
+    Route::get('/products/history', [ProductController::class, 'histories'])->name('products.histories');
+    Route::get('/products/{product}/history', [ProductController::class, 'history'])->name('products.history');
+
+    // Constrain product show to numeric ids to avoid collisions with named routes
     Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
     Route::get('/stocks', [ProductController::class, 'index'])->name('stocks.index');

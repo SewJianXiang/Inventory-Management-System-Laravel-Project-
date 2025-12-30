@@ -17,4 +17,9 @@ class Product extends Model
         'created_by',
         'image',
     ];
+
+    public function histories()
+    {
+        return $this->hasMany(ProductHistory::class);
+    }
 }
