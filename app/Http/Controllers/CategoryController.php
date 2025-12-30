@@ -14,6 +14,12 @@ class CategoryController extends Controller
         return view('categories', compact('categories'));
     }
 
+    public function showCategory()
+    {
+        $categories = Category::all(); 
+        return view('stock', compact('categories'));
+    }
+
     public function store(Request $request)
     {
 

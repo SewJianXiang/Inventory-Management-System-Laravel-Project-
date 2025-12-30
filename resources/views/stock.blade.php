@@ -38,15 +38,31 @@
 
                     <h2 class="text-xl font-semibold mb-4">Create New Stock</h2>
 
+                    @if ($errors->any())
+                        <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+                            <ul class="list-disc pl-5">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <form method="POST" action="{{ route('stocks.store') }}" enctype="multipart/form-data" class="grid grid-cols-2 gap-4">
                         @csrf
 
                         <input type="text" name="product_name" placeholder="Product Name"
                             class="border rounded px-3 py-2 col-span-2" required>
 
-                        <input type="text" name="category" placeholder="Category"
-                            class="border rounded px-3 py-2" required>
-
+                        <select name="category"
+                                class="border rounded px-3 py-2 w-full">
+                                <option value="">-- Select Category --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->name }}" {{ old('category') == $category->name ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         <input type="file" name="image" accept="image/*"
                             class="border px-3 py-2 col-span-2" required>
 
@@ -86,15 +102,20 @@
                             <button type="submit" class="ml-2 bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600">Search</button>
                             <a href="{{ route('stocks.index') }}" class="ml-2 bg-gray-200 text-gray-700 px-3 py-2 rounded hover:bg-gray-300">Clear</a>
                         </form>
-
+                        
                         <!-- Category Filter (optional) -->
-                        <div class="flex items-center gap-2">
-                            <select class="border rounded-lg px-3 py-2">
-                                <option value="">All Categories</option>
-                                <option>Food</option>
-                                <option>Electronics</option>
-                                <option>Accessories</option>
+                        <form method="GET" action="{{ route('stocks.index') }}" class="flex items-center gap-2">
+                            <select name="category_name"
+                                class="border rounded px-3 py-2 w-full"
+                                onchange="this.form.submit()">
+                                <option value="">-- Select Category --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->name }}" {{ request('category_name') == $category->name ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
                             </select>
+                        </form>
                         </div>
                     </div>
                     <!-- Stock Table -->

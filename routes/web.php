@@ -12,9 +12,7 @@ Route::get('/', function () {
 
 
 
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -36,9 +34,15 @@ Route::middleware(['auth'])->group(function () {
 
     // Constrain product show to numeric ids to avoid collisions with named routes
     Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
-
+    
     Route::get('/stocks', [ProductController::class, 'index'])->name('stocks.index');
     Route::post('/stocks', [ProductController::class, 'store'])->name('stocks.store');
+    
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    
+    
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
