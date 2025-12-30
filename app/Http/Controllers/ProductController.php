@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
@@ -9,17 +10,23 @@ class ProductController extends Controller
       public function index(Request $request)
     {
         $search = $request->query('search');
-
         $productsQuery = Product::query();
-
+        $categoryName = $request->query('category_name');
+        
+        
         if ($search) {
             $productsQuery->where('product_name', 'LIKE', "%{$search}%")
                           ->orWhere('category', 'LIKE', "%{$search}%");
         }
 
+       if ($categoryName) {
+        $productsQuery->where('category', $categoryName);
+        }
+
+        $categories = Category::all();
         $products = $productsQuery->orderBy('id', 'asc')->get(); // fetch filtered products
 
-        return view('stock', compact('products')); // pass $products to Blade
+        return view('stock', compact('products', 'categories')); // pass $products to Blade
     }
 
     public function store(Request $request)
