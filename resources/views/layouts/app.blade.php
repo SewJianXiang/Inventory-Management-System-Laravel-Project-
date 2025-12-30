@@ -36,7 +36,7 @@
             <div class="p-6 font-semibold text-lg border-b">Menu</div>
 
             <nav class="p-4 space-y-2">
-                <a href=""
+                                <a href=""
                 class="block px-4 py-2 rounded-lg hover:bg-slate-100">
                 📊 Dashboard
                 </a>
@@ -57,7 +57,7 @@
                 🗂 Categories
                 </a>
 
-                <a href=""
+                <a href="{{ route('products.histories') }}"
                 class="block px-4 py-2 rounded-lg hover:bg-slate-100">
                 📈 Reports
                 </a>

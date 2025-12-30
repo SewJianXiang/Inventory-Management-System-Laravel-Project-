@@ -80,12 +80,22 @@
                 <!-- Product Name -->
                 <div class="mb-4">
                     <label class="block font-semibold mb-1">Product Name</label>
-                    <input type="text" name="product_name" value="{{ $product->product_name }}" class="w-full border rounded px-3 py-2">
+                    <input type="text" name="product_name" value="{{ old('product_name', $product->product_name) }}" class="w-full border rounded px-3 py-2">
+                </div>
+                <!-- Category -->
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">Category</label>
+                    <input type="text" name="category" value="{{ old('category', $product->category) }}" class="w-full border rounded px-3 py-2">
+                </div>
+                <!-- Quantity -->
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">Quantity</label>
+                    <input type="number" name="quantity" value="{{ old('quantity', $product->quantity) }}" class="w-full border rounded px-3 py-2">
                 </div>
                 <!-- Price -->
                 <div class="mb-4">
                     <label class="block font-semibold mb-1">Price</label>
-                    <input type="number" step="0.01" name="price" value="{{ $product->price }}" class="w-full border rounded px-3 py-2">
+                    <input type="number" step="0.01" name="price" value="{{ old('price', $product->price) }}" class="w-full border rounded px-3 py-2">
                 </div>
                 <!-- Image -->
                 <div class="mb-4">
