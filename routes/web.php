@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     // Put static history routes before dynamic product routes so '/products/history' isn't captured as a product id
     Route::get('/products/history', [ProductController::class, 'histories'])->name('products.histories');
     Route::get('/products/{product}/history', [ProductController::class, 'history'])->name('products.history');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     // User products route
     Route::get('/user/user_product', [ProductController::class, 'user_index'])->name('user_products.index');

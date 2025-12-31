@@ -64,18 +64,33 @@
                             <td class="text-sm px-6 py-4 min-w-[480px] w-96 whitespace-normal break-words">
                                 <ul class="space-y-1">
                                     @if($history->action === 'created')
-                                        @foreach($history->new_values as $field => $value)
+                                        @foreach($history->new_values ?? [] as $field => $value)
                                             <li class="flex items-center gap-2">
                                                 <span class="font-medium capitalize break-words">{{ $field }}:</span>
                                                 <span class="text-gray-700 break-words">{{ is_null($value) ? '—' : $value }}</span>
                                             </li>
                                         @endforeach
-                                    @else
-                                        @foreach($history->new_values as $field => $new)
+                                    @elseif($history->action === 'updated')
+                                        @foreach($history->new_values ?? [] as $field => $new)
                                             <li class="flex items-center gap-2 ">
                                                 <span class="font-medium capitalize break-words">{{ $field }}:</span>
                                                 <span class="line-through text-gray-400 break-words">{{ $history->previous_values[$field] ?? '—' }}</span>
                                                 <span class="text-blue-600 font-semibold break-words">&rarr; {{ $new }}</span>
+                                            </li>
+                                        @endforeach
+                                    @elseif($history->action === 'deleted')
+                                        @foreach($history->previous_values ?? [] as $field => $old)
+                                            <li class="flex items-center gap-2">
+                                                <span class="font-medium capitalize break-words">{{ $field }}:</span>
+                                                <span class="text-gray-700 break-words">{{ is_null($old) ? '—' : $old }}</span>
+                                                <span class="px-2 py-1 ml-2 text-red-700 bg-red-100 rounded-full text-sm">deleted</span>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        @foreach(($history->new_values ?? $history->previous_values ?? []) as $field => $value)
+                                            <li class="flex items-center gap-2">
+                                                <span class="font-medium capitalize break-words">{{ $field }}:</span>
+                                                <span class="text-gray-700 break-words">{{ is_null($value) ? '—' : $value }}</span>
                                             </li>
                                         @endforeach
                                     @endif

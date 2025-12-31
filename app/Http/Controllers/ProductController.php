@@ -210,4 +210,38 @@ class ProductController extends Controller
         $histories = ProductHistory::with('product')->orderBy('created_at', 'desc')->paginate(10);
         return view('history', compact('histories'));
     }
+    
+    public function destroy(Product $product)
+{
+    // Save old values for history
+    $oldValues = [
+        'name'     => $product->product_name,
+        'category' => $product->category,
+        'quantity' => $product->quantity,
+        'price'    => $product->price,
+        'image'    => $product->image,
+    ];
+
+    // Delete image from storage if exists
+    if ($product->image && Storage::disk('public')->exists($product->image)) {
+        Storage::disk('public')->delete($product->image);
+    }
+
+    // Store delete history
+    ProductHistory::create([
+        'product_id'      => $product->id,
+        'user_id'         => auth()->id(),
+        'user_name'       => auth()->user()->name,
+        'action'          => 'deleted',
+        'previous_values' => $oldValues,
+        'new_values'      => null,
+    ]);
+
+    // Delete product
+    $product->delete();
+
+    return redirect()
+        ->route('stocks.index')
+        ->with('success', 'Product deleted successfully!');
+}
 }

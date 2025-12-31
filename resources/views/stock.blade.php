@@ -21,9 +21,6 @@
                                         class="flex items-center justify-center bg-green-200 text-green-700 hover:bg-green-300 py-3 rounded">
                                          ✚ Create
                                     </button>
-                                    <button class="flex items-center justify-center bg-red-200 text-red-700 hover:bg-red-300 py-3 rounded">
-                                        🗑 Delete
-                                    </button>
                                 </div>
                             </div>
 
