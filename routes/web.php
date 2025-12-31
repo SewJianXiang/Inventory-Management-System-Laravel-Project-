@@ -56,6 +56,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/settings/password', [App\Http\Controllers\SettingsController::class, 'editPassword'])->name('settings.password');
     Route::post('/settings/password', [App\Http\Controllers\SettingsController::class, 'updatePassword'])->name('settings.password.update');
 
+    Route::get('/user/user_settings/password', [App\Http\Controllers\SettingsController::class, 'user_editPassword'])->name('user.settings.password');
+    Route::post('/user/user_settings/password', [App\Http\Controllers\SettingsController::class, 'updatePassword'])->name('user.settings.password.update');
+
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

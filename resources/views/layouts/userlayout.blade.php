@@ -63,10 +63,17 @@
                 </a>
 
                 <!-- Settings Link -->
-                <a href="{{ route('settings.password') }}"
+                <a href="{{ route('user.settings.password') }}"
                 class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('settings.password') ? 'bg-blue-50 text-blue-700 font-bold' : 'text-slate-600 hover:bg-slate-100 transition' }}">
                     <span>⚙</span> Settings
                 </a>
+
+                @if(Auth::user()->is_admin == 1)
+                    <a href="{{ route('admin.dashboard') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('settings.password') ? 'bg-blue-50 text-blue-700 font-bold' : 'text-slate-600 hover:bg-slate-100 transition' }}">
+                        <span>⚙</span> Admin Panel
+                    </a>
+                @endif
             </nav>
         </div>
     </aside>

@@ -13,7 +13,11 @@ class SettingsController extends Controller
     {
         return view('settings');
     }
-
+    
+    public function user_editPassword()
+    {
+        return view('user.user_settings');
+    }
     // Update password
     public function updatePassword(Request $request)
     {

@@ -21,7 +21,7 @@ class LoginController extends Controller
             if (Auth::user()->is_admin) {
                 return redirect('/admin/dashboard');
             } else {
-                return redirect('/stocks');
+                return redirect('/dashboard');
             }
         }
 
