@@ -23,20 +23,21 @@
             <table class="w-full table-fixed bg-white">
                 <thead>
                     <tr class="bg-gray-50 border-b border-gray-200">
-                        <th class="px-6 py-3 text-left text-slite-800 font-bold w-40">Date</th>
-                        <th class="px-6 py-3 text-left text-slite-800 font-bold w-32">Action</th>
-                        <th class="px-6 py-3 text-left text-slite-800 font-bold w-40">User</th>
+                        <th class="px-6 py-3 text-left text-slite-800 font-bold w-40 max-w-[120px]">Date</th>
+                        <th class="px-6 py-3 text-left text-slite-800 font-bold w-32 max-w-[100px] ">Action</th>
+                        <th class="px-6 py-3 text-left text-slite-800 font-bold w-40 max-w-[150px]">User</th>
                         @if(!isset($product))
-                            <th class="px-6 py-3 text-left text-slite-800 font-bold max-w-[180px] w-48">Product</th>
+                            <th class="px-6 py-3 text-left text-slite-800 font-bold max-w-[150px] w-48">Product</th>
                         @endif
-                        <th class="px-6 py-3 text-left text-slite-800 font-bold max-w-[380px] w-96">Changes</th>
+                        <th class="px-6 py-3 text-left text-slite-800 font-bold max-w-[480px] w-96">Changes</th>
+                        <th></th><th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($histories as $history)
                         <tr class="border-b hover:bg-gray-50">
-                            <td class="px-6 py-4 w-40 whitespace-normal break-words">{{ $history->created_at->format('Y-m-d H:i:s') }}</td>
-                            <td class="px-6 py-4 w-32 whitespace-normal">
+                            <td class="text-sm px-6 py-4 w-40 whitespace-normal break-words max-w-[120px]">{{ $history->created_at->format('Y-m-d H:i:s') }}</td>
+                            <td class="text-sm px-6 py-4 w-32 whitespace-normal  max-w-[100px]">
                                 @if($history->action === 'created')
                                     <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-sm">{{ ucfirst($history->action) }}</span>
                                 @elseif($history->action === 'updated')
@@ -47,9 +48,9 @@
                                     {{ ucfirst($history->action) }}
                                 @endif
                             </td>
-                            <td class="px-6 py-4 w-40 whitespace-normal break-words">{{ $history->user_name ?? 'System' }}</td>
+                            <td class="text-sm px-6 py-4 w-40 whitespace-normal break-words max-w-[150px]">{{ $history->user_name ?? 'System' }}</td>
                             @if(!isset($product))
-                                <td class="px-6 py-4 max-w-[180px] w-48 whitespace-normal overflow-hidden break-words">
+                                <td class="text-sm px-6 py-4 max-w-[150px] w-48 whitespace-normal overflow-hidden break-words">
                                     @if($history->product)
                                         <a href="{{ route('products.show', $history->product->id) }}" class="text-blue-600 hover:underline break-words">
                                             {{ $history->product->product_name }}
@@ -59,7 +60,7 @@
                                     @endif
                                 </td>
                             @endif
-                            <td class="px-6 py-4 max-w-[380px] w-96 whitespace-normal break-words">
+                            <td class="text-sm px-6 py-4 max-w-[480px] w-96 whitespace-normal break-words">
                                 <ul class="space-y-1">
                                     @if($history->action === 'created')
                                         @foreach($history->new_values as $field => $value)
@@ -79,6 +80,7 @@
                                     @endif
                                 </ul>
                             </td>
+                            <td></td><td></td>
                         </tr>
                     @endforeach
                 </tbody>
