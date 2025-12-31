@@ -32,9 +32,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/products/history', [ProductController::class, 'histories'])->name('products.histories');
     Route::get('/products/{product}/history', [ProductController::class, 'history'])->name('products.history');
 
+    // User products route
+    Route::get('/user/user_product', [ProductController::class, 'user_index'])->name('user_products.index');
+    
+    // User-specific category show route
+    Route::get('/user/categories', [CategoryController::class, 'user_categoryIndex'])->name('user_categories.index');
+    
+    // User-specific product show route
+    Route::get('/products/{id}/user_show', [ProductController::class, 'user_show'])->name('products.user_show');
+
     // Constrain product show to numeric ids to avoid collisions with named routes
     Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
-    
+
+
+    // Stock and Category Routes
     Route::get('/stocks', [ProductController::class, 'index'])->name('stocks.index');
     Route::post('/stocks', [ProductController::class, 'store'])->name('stocks.store');
     
@@ -42,7 +53,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
     
-    
+    Route::get('/settings/password', [App\Http\Controllers\SettingsController::class, 'editPassword'])->name('settings.password');
+    Route::post('/settings/password', [App\Http\Controllers\SettingsController::class, 'updatePassword'])->name('settings.password.update');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

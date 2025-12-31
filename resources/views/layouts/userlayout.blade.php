@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category Management - StockSys Malaysia</title>
+    <title>@yield('title', 'StockSys Malaysia')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -13,6 +13,7 @@
 
 <body class="bg-slate-50 min-h-screen flex flex-col">
 
+<!-- NAVBAR -->
 <nav class="bg-slate-900 text-white px-8 py-4 flex justify-between items-center shadow-md">
     <div class="flex items-center gap-2 text-2xl font-bold tracking-tight">
         <span class="bg-blue-600 p-1.5 rounded-lg">📦</span>
@@ -36,6 +37,7 @@
 </nav>
 
 <div class="flex flex-1">
+    <!-- SIDEBAR -->
     <aside class="w-72 bg-white border-r border-slate-200 hidden lg:block">
         <div class="p-6">
             <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Main Menu</p>
@@ -50,7 +52,7 @@
                     <span>📦</span> Inventory Stock
                 </a>
                 
-                <a href="{{ route('categories.index') }}" 
+                <a href="{{ route('user_categories.index') }}" 
                 class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('categories.index') ? 'bg-blue-50 text-blue-700 font-bold' : 'text-slate-600 hover:bg-slate-100 transition' }}">
                     <span>🗂</span> Categories
                 </a>
@@ -59,11 +61,24 @@
                 class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition">
                     <span>📈</span> Business Reports
                 </a>
+
+                <!-- Settings Link -->
+                <a href="{{ route('settings.password') }}"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('settings.password') ? 'bg-blue-50 text-blue-700 font-bold' : 'text-slate-600 hover:bg-slate-100 transition' }}">
+                    <span>⚙</span> Settings
+                </a>
             </nav>
         </div>
     </aside>
 
-    <footer class="bg-white border-t border-slate-200 text-slate-400 text-center py-6 text-sm">
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 p-8">
+        @yield('content')
+    </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-white border-t border-slate-200 text-slate-400 text-center py-6 text-sm">
     &copy; 2025 <span class="font-bold text-slate-600">StockSys Malaysia</span>. All rights reserved.
 </footer>
 

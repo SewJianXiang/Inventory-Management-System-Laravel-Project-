@@ -23,14 +23,27 @@
             </div>
             @endif
 
-            <form action="{{ route('categories.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-12 gap-6">
                 @csrf
                 <div class="md:col-span-4">
                     <label class="block text-sm font-bold text-slate-700 mb-2">Category Name</label>
                     <input type="text" name="name" placeholder="e.g., Electronics or Food"
                         class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition" required>
                 </div>
+                <div class="md:col-span-4">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">
+                            Category Image
+                        </label>
 
+                        <input type="file"
+                            name="image"
+                            accept="image/*"
+                            class="w-full border border-slate-300 rounded-xl px-4 py-3">
+
+                        <p class="text-xs text-slate-400 mt-2">
+                            JPG / PNG / WEBP (Max 2MB)
+                        </p>
+                    </div>
                 <div class="md:col-span-5">
                     <label class="block text-sm font-bold text-slate-700 mb-2">Description (Optional)</label>
                     <input type="text" name="description" placeholder="Brief details about this category"
@@ -57,6 +70,7 @@
                         <tr class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
                             <th class="px-8 py-4 font-bold">ID</th>
                             <th class="px-8 py-4 font-bold">Category Name</th>
+                            <th class="px-8 py-4 font-bold">Image</th>
                             <th class="px-8 py-4 font-bold">Description</th>
                             <th class="px-8 py-4 font-bold">Created Date</th>
                             <th class="px-8 py-4 font-bold text-center">Actions</th>
@@ -67,6 +81,14 @@
                         <tr class="hover:bg-slate-50/50 transition">
                             <td class="px-8 py-5 text-slate-400 font-mono text-sm">#{{ $category->id }}</td>
                             <td class="px-8 py-5 font-bold text-slate-700">{{ $category->name }}</td>
+                            <td class="px-8 py-5">
+                                    @if($category->image)
+                                        <img src="{{ asset('storage/'.$category->image) }}"
+                                            class="w-12 h-12 object-cover rounded-lg border">
+                                    @else
+                                        <span class="text-slate-400 text-xs italic">No image</span>
+                                    @endif
+                                </td>
                             <td class="px-8 py-5 text-slate-500 text-sm italic">{{ $category->description ?? 'No description provided' }}</td>
                             <td class="px-8 py-5 text-sm text-slate-500">{{ $category->created_at->format('d M, Y') }}</td>
                             <td class="px-8 py-5">
