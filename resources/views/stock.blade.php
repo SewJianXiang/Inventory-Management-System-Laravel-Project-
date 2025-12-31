@@ -15,13 +15,13 @@
 
                             <!-- PRODUCT MANAGEMENT -->
                             <div class="bg-white rounded-xl shadow p-6 mb-6">
-                                <div class="grid grid-cols-4 gap-2">
+                                <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-2">
                                     <button
                                         @click="showCreate = !showCreate"
-                                        class="flex items-center justify-center bg-green-100 text-green-700 hover:bg-green-200 py-3 rounded">
+                                        class="flex items-center justify-center bg-green-200 text-green-700 hover:bg-green-300 py-3 rounded">
                                          ✚ Create
                                     </button>
-                                    <button class="flex items-center justify-center bg-red-100 text-red-700 hover:bg-red-200 py-3 rounded">
+                                    <button class="flex items-center justify-center bg-red-200 text-red-700 hover:bg-red-300 py-3 rounded">
                                         🗑 Delete
                                     </button>
                                 </div>
@@ -94,11 +94,11 @@
                     <div class="bg-white mb-4 flex flex-wrap gap-4 items-center justify-between">
 
                         <!-- Search -->
-                        <form method="GET" action="{{ route('stocks.index') }}" class="flex items-center gap-2 w-full md:w-2/3">
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Search product by name or category..."
-                                class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <button type="submit" class="ml-2 bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600">Search</button>
-                            <a href="{{ route('stocks.index') }}" class="ml-2 bg-gray-200 text-gray-700 px-3 py-2 rounded hover:bg-gray-300">Clear</a>
+                        <form method="GET" action="{{ route('stocks.index') }}" class="grid grid-cols-1 md:grid-cols-4 items-center gap-2 w-full md:w-2/3">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name or category..."
+                                           class="md:col-span-2 border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <button type="submit" class="ml-2 bg-blue-500 font-semibold text-white px-3 py-2 rounded hover:bg-blue-600 text-center">Search</button>
+                            <a href="{{ route('stocks.index') }}" class="ml-2 bg-gray-200 text-gray-700 font-semibold px-3 py-2 rounded hover:bg-gray-300 text-center">Clear</a>
                         </form>
                         
                         <!-- Category Filter (optional) -->
@@ -123,29 +123,29 @@
                         class="bg-white ">
 
                         <h2 class="text-2xl font-semibold mb-2">Stock List</h2>
-                        <!-- CREATE FORM -->
-                        <table class="w-full text-center">
+                        <div class="overflow-x-auto rounded-md">
+                        <table class="min-w-full text-center">
                             <thead class="bg-blue-600 text-white">
                                 <tr>
-                                    <th class="p-3">ID</th>
-                                    <th class="p-3">Product</th>
-                                    <th class="p-3">Category</th>
-                                    <th class="p-3">Qty</th>
-                                    <th class="p-3">Price</th>
-                                    <th class="p-3">Status</th>
-                                    <th class="p-3">Action</th>
+                                    <th class="p-3 w-[50px]">ID</th>
+                                    <th class="p-3 w-[140px]">Product</th>
+                                    <th class="p-3 w-[140px]">Category</th>
+                                    <th class="p-3 w-[140px]">Qty</th>
+                                    <th class="p-3 w-[140px]">Price</th>
+                                    <th class="p-3 min-w-[100px]">Status</th>
+                                    <th class="p-3 w-[80px]">Action</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 @foreach ($products as $product)
                                 <tr class="border-b hover:bg-slate-50">
-                                    <td class="p-3">{{ $product->id }}</td>
-                                    <td class="p-3">{{ $product->product_name }}</td>
-                                    <td class="p-3">{{ $product->category }}</td>
-                                    <td class="p-3">{{ $product->quantity }}</td>
-                                    <td class="p-3">${{ number_format($product->price, 2) }}</td>
-                                    <td class="p-3">
+                                    <td class="p-3 w-[50px]">{{ $product->id }}</td>
+                                    <td class="p-3 w-[140px] break-all">{{ $product->product_name }}</td>
+                                    <td class="p-3 w-[140px] break-all">{{ $product->category }}</td>
+                                    <td class="p-3 w-[140px]">{{ $product->quantity }}</td>
+                                    <td class="p-3 w-[140px]">${{ number_format($product->price, 2) }}</td>
+                                    <td class="p-3 min-w-[100px]">
                                         @if ($product->quantity > 10)
                                         <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">In Stock</span>
                                         @elseif ($product->quantity > 0)
@@ -154,7 +154,7 @@
                                         <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">Out</span>
                                         @endif
                                     </td>
-                                    <td class="p-3">
+                                    <td class="p-3 w-[80px]">
                                         <a href="{{ route('products.show', $product->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
                                             View
                                         </a>

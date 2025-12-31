@@ -26,16 +26,17 @@
     <div class="bg-white rounded-xl shadow p-6">
         <h2 class="text-xl font-semibold mb-4">Stock List</h2>
 
-        <table class="w-full text-center border">
-            <thead class="bg-blue-600 text-white">
-                <tr>
-                    <th>ID</th>
-                    <th>Product</th>
-                    <th>Category</th>
-                    <th>Qty</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-center border">
+                <thead class="bg-blue-600 text-white">
+                    <tr>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
             <tbody>
                 @forelse($products as $product)
                 <tr>
