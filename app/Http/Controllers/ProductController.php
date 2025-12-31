@@ -77,7 +77,8 @@ class ProductController extends Controller
     public function show($id)
         {
             $product = Product::findOrFail($id);
-            return view('products.show', compact('product'));
+            $categories = Category::all();
+            return view('products.show', compact('product', 'categories'));
         }
 
     public function update(Request $request, Product $product)

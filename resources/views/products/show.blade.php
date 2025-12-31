@@ -82,10 +82,17 @@
                     <label class="block font-semibold mb-1">Product Name</label>
                     <input type="text" name="product_name" value="{{ old('product_name', $product->product_name) }}" class="w-full border rounded px-3 py-2">
                 </div>
-                <!-- Category -->
+                <!-- Category (Dropdown) -->
                 <div class="mb-4">
                     <label class="block font-semibold mb-1">Category</label>
-                    <input type="text" name="category" value="{{ old('category', $product->category) }}" class="w-full border rounded px-3 py-2">
+                    <select name="category" class="w-full border rounded px-3 py-2">
+                        <option value="">-- Select Category --</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->name }}" {{ old('category', $product->category) == $category->name ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 <!-- Quantity -->
                 <div class="mb-4">
