@@ -3,13 +3,11 @@
      <!-- ===== MAIN CONTENT ===== -->
         <main class="flex-1 p-8">
             @yield('content') <!-- Child pages will inject content here -->
-            <h1 class="text-3xl font-bold mb-6">📦 Stock Management</h1>
-
             <!-- Add Stock -->
             <div class="bg-white rounded-xl shadow p-6 mb-8"
                 x-data="{ showCreate: false }">
 
-                <h2 class="text-xl font-semibold mb-4">Product Management</h2>
+                <h2 class="text-2xl font-bold text-slate-800 mb-4">Product Management</h2>
 
 
                 <div class="p-3 space-x-2">
@@ -21,7 +19,7 @@
                                     <button
                                         @click="showCreate = !showCreate"
                                         class="flex items-center justify-center bg-green-100 text-green-700 hover:bg-green-200 py-3 rounded">
-                                        ➕ Create
+                                         ✚ Create
                                     </button>
                                     <button class="flex items-center justify-center bg-red-100 text-red-700 hover:bg-red-200 py-3 rounded">
                                         🗑 Delete
@@ -91,7 +89,7 @@
                 <div x-show="!showCreate"
                     x-transition
                     x-cloak
-                    class="bg-white rounded-xl shadow p-6">
+                    class="bg-white p-6">
                     <!-- Search & Filter -->
                     <div class="bg-white mb-4 flex flex-wrap gap-4 items-center justify-between">
 
@@ -106,7 +104,7 @@
                         <!-- Category Filter (optional) -->
                         <form method="GET" action="{{ route('stocks.index') }}" class="flex items-center gap-2">
                             <select name="category_name"
-                                class="border rounded px-3 py-2 w-full"
+                                class="border rounded px-3 py-2 w-full text-md"
                                 onchange="this.form.submit()">
                                 <option value="">-- Select Category --</option>
                                 @foreach ($categories as $category)

@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Inventory Management System')</title>
     <script src="https://cdn.tailwindcss.com"></script>
-     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
 </head>
 
 <body class="bg-slate-100 min-h-screen flex flex-col">
@@ -59,7 +60,7 @@
 
                 <a href="{{ route('products.histories') }}"
                 class="block px-4 py-2 rounded-lg hover:bg-slate-100">
-                📈 Reports
+                📈 History
                 </a>
 
                 <a href=""
@@ -70,9 +71,7 @@
         </aside>
 
         <!-- CONTENT -->
-        <main class="flex-1 p-8">
             @yield('content')
-        </main>
 
     </div>
 
