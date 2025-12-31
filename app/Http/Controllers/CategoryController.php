@@ -20,18 +20,29 @@ class CategoryController extends Controller
         return view('stock', compact('categories'));
     }
 
+    public function user_categoryIndex()
+    {
+    $categories = Category::all();
+    return view('user.user_category', compact('categories'));
+    }
+
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:255|unique:categories,name',
+            'image'=> 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:10240',
+        ]);
 
-            $request->validate([
-                'name' => 'required|max:255|unique:categories,name',
-            ]);
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+        }
 
-
-            Category::create([
-                'name' => $request->name,
-                'description' => $request->description,
-            ]);
+        Category::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $imagePath,
+        ]);
 
         return redirect()->back()->with('success', 'Category added successfully!');
     }

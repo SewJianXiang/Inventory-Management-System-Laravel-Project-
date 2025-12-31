@@ -39,7 +39,7 @@
             <div class="p-6 font-semibold text-lg border-b">Menu</div>
 
             <nav class="p-4 space-y-2">
-                                <a href=""
+                                <a href="{{ route('admin.dashboard') }}"
                 class="block px-4 py-2 rounded-lg hover:bg-slate-100">
                 📊 Dashboard
                 </a>
@@ -65,9 +65,14 @@
                 📈 History
                 </a>
 
-                <a href=""
+                <a href="{{ route('settings.password') }}"
                 class="block px-4 py-2 rounded-lg hover:bg-slate-100">
                 ⚙ Setting
+                </a>
+
+                <a href="{{ route('dashboard') }}"
+                class="block px-4 py-2 rounded-lg hover:bg-slate-100">
+                ⚙ Switch to User View 
                 </a>
             </nav>
         </aside>

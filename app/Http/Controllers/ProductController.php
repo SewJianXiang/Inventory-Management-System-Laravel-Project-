@@ -27,10 +27,39 @@ class ProductController extends Controller
 
         $categories = Category::all();
         $products = $productsQuery->orderBy('id', 'asc')->get(); // fetch filtered products
-
-        return view('stock', compact('products', 'categories')); // pass $products to Blade
+        
+        return view('stock', compact('products', 'categories'));
+         // pass $products to Blade
     }
 
+            public function user_index(Request $request)
+        {
+            $search = $request->query('search');
+            $categoryName = $request->query('category_name');
+            
+            // Filter products specifically for the authenticated user
+            $productsQuery = Product::where('user_id', auth()->id());
+
+            if ($search) {
+                $productsQuery->where(function($q) use ($search) {
+                    $q->where('product_name', 'LIKE', "%{$search}%")
+                    ->orWhere('category', 'LIKE', "%{$search}%");
+                });
+            }
+
+            if ($categoryName) {
+                $productsQuery->where('category', $categoryName);
+            }
+
+            $categories = Category::all();
+            $products = $productsQuery->orderBy('id', 'asc')->get();
+
+            return view('user.user_product', compact('products', 'categories'));
+        }
+    
+            // Show a product for the user in user_show view
+            // Show a product for the user in user_show view
+    
     public function store(Request $request)
     {
         // Validate input and store in $validated
@@ -73,13 +102,21 @@ class ProductController extends Controller
             ->with('success', 'Product created successfully!');
 
     }
-
+    // Show a product
     public function show($id)
         {
             $product = Product::findOrFail($id);
             $categories = Category::all();
             return view('products.show', compact('product', 'categories'));
         }
+
+    // Show a product for the user in user_show view
+    public function user_show($id)
+    {
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        return view('products.user_show', compact('product', 'categories'));
+    }
 
     public function update(Request $request, Product $product)
     {
