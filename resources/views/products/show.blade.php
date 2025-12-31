@@ -4,7 +4,7 @@
 @section('title', $product->product_name)
 
 @section('content')
-<div class="bg-slate-100 min-h-screen p-8">
+<div class="bg-slate-100 min-h-screen w-[70rem] p-8">
     <!-- Product View Section -->
     <div id="productView">
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-6 rounded-xl shadow relative">
@@ -33,7 +33,7 @@
             </div>
             <!-- Product Details -->
             <div class="flex flex-col justify-start">
-                <h1 class="text-3xl font-bold mb-2">{{ $product->product_name }}</h1>
+                <h1 class="text-3xl font-bold mb-2 break-words w-[20rem]">{{ $product->product_name }}</h1>
                 <p class="text-gray-500 mb-4">SKU: {{ $product->id }}</p>
                 <div class="flex items-center gap-4 mb-4">
                     <span class="text-2xl font-semibold text-gray-900">${{ number_format($product->price, 2) }}</span>

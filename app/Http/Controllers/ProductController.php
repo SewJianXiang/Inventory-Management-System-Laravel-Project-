@@ -5,6 +5,7 @@ use App\Models\Product;
 use App\Models\ProductHistory;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {   
@@ -169,7 +170,7 @@ class ProductController extends Controller
     // History view for all products
     public function histories()
     {
-        $histories = ProductHistory::with('product')->orderBy('created_at', 'desc')->get();
+        $histories = ProductHistory::with('product')->orderBy('created_at', 'desc')->paginate(10);
         return view('history', compact('histories'));
     }
 }
