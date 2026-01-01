@@ -56,12 +56,15 @@
                         Edit
                     </button>
                     <!-- Delete Button -->
-                    <form method="POST" action="">
+                    <form action="{{ route('products.destroy', $product->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 flex items-center gap-2" onclick="return confirm('Are you sure you want to delete this product?');">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+
+                        <button type="submit"
+                            class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 flex items-center gap-2"
+                            onclick="return confirm('Are you sure you want to delete this product?')">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="w-5 h-5 text-white" fill="currentColor">
+                              <path d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z"/>
                             </svg>
                             Delete
                         </button>
@@ -74,6 +77,16 @@
     <div id="editModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
         <div class="bg-white w-full max-w-lg p-6 rounded-xl shadow-lg">
             <h2 class="text-2xl font-bold mb-4">Edit Product</h2>
+            <!-- Show validation errors inside the modal -->
+            @if ($errors->any())
+                <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+                    <ul class="list-disc pl-5">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -129,4 +142,15 @@
         document.getElementById('productView').classList.remove('hidden');
     }
 </script>
+
+{{-- If validation failed, open the edit modal so user sees errors and old input --}}
+@if ($errors->any())
+    <script>
+        // Ensure view switches to the edit modal on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            openEdit();
+        });
+    </script>
+@endif
+
 @endsection
