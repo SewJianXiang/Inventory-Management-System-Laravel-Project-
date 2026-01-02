@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'StockSys Malaysia')</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">        <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
@@ -16,7 +17,7 @@
 <!-- NAVBAR -->
 <nav class="bg-slate-900 text-white px-8 py-4 flex justify-between items-center shadow-md">
     <div class="flex items-center gap-2 text-2xl font-bold tracking-tight">
-        <span class="bg-blue-600 p-1.5 rounded-lg">📦</span>
+        <span class="">📦</span>
         <span>Stock<span class="text-blue-400">Sys</span></span>
     </div>
     <div class="flex items-center space-x-6">
@@ -24,7 +25,7 @@
             <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=0D8ABC&color=fff" class="w-10 h-10 rounded-full border-2 border-slate-700">
             <div class="hidden md:block">
                 <p class="text-sm font-semibold leading-none">{{ Auth::user()->name }}</p>
-                <p class="text-xs text-slate-400 mt-1">Administrator</p>
+                <p class="text-xs text-slate-400 mt-1">User</p>
             </div>
         </div>
         <form method="POST" action="{{ route('logout') }}">

@@ -7,28 +7,34 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
 
 <body class="bg-slate-100 min-h-screen flex flex-col">
 
     <!-- TOP NAV -->
-    <nav class="bg-slate-800 text-white">
-        <div class="max-w-6xl mx-auto w-full flex items-center justify-between px-6 py-4">
-            <div class="text-xl font-bold">📦 StockSys</div>
-            @auth
-            <div class="flex items-center space-x-4">
-                <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}"
-                     class="w-9 h-9 rounded-full border">
-                <span class="text-sm font-medium">{{ Auth::user()->name }}</span>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
-                        Logout
-                    </button>
-                </form>
+    <nav class="bg-slate-900 text-white px-8 py-4 flex justify-between items-center shadow-md">
+    <div class="flex items-center gap-2 text-2xl font-bold tracking-tight">
+        <span class="">📦</span>
+        <span>Stock<span class="text-blue-400">Sys</span></span>
+    </div>
+    <div class="flex items-center space-x-6">
+        <div class="flex items-center gap-3">
+            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=0D8ABC&color=fff" class="w-10 h-10 rounded-full border-2 border-slate-700">
+            <div class="hidden md:block">
+                <p class="text-sm font-semibold leading-none">{{ Auth::user()->name }}</p>
+                <p class="text-xs text-slate-400 mt-1">Administrator</p>
             </div>
-            @endauth
         </div>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-sm font-bold transition-all shadow-sm">
+                Logout
+            </button>
+        </form>
+    </div>
     </nav>
 
     <!-- MAIN AREA -->
