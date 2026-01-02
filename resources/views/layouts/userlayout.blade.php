@@ -57,11 +57,6 @@
                 class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('categories.index') ? 'bg-blue-50 text-blue-700 font-bold' : 'text-slate-600 hover:bg-slate-100 transition' }}">
                     <span>🗂</span> Categories
                 </a>
-                
-                <a href="#" 
-                class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-100 transition">
-                    <span>📈</span> Business Reports
-                </a>
 
                 <!-- Settings Link -->
                 <a href="{{ route('user.settings.password') }}"

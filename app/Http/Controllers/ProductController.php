@@ -37,10 +37,13 @@ class ProductController extends Controller
             $search = $request->query('search');
             $categoryName = $request->query('category_name');
             
-            // Filter products specifically for the authenticated user
-            $productsQuery = Product::where('user_id', auth()->id());
+            // Show all products to all users
+            $productsQuery = Product::query();
 
-            if ($search) {
+            //unused code to show products only to the owner
+            // $productsQuery = Product::where('user_id', auth()->id());
+           
+             if ($search) {
                 $productsQuery->where(function($q) use ($search) {
                     $q->where('product_name', 'LIKE', "%{$search}%")
                     ->orWhere('category', 'LIKE', "%{$search}%");
