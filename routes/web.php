@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('home');
 });
@@ -61,10 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/user_settings/password', [App\Http\Controllers\SettingsController::class, 'user_editPassword'])->name('user.settings.password');
     Route::post('/user/user_settings/password', [App\Http\Controllers\SettingsController::class, 'updatePassword'])->name('user.settings.password.update');
 
-
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/inventory', function () {
         return view('inventory');
