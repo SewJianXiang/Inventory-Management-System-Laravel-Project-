@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('home');
@@ -79,9 +80,7 @@ Route::middleware(['auth'])->group(function () {
     // Admin only routes
     Route::middleware(['admin'])->group(function () {
 
-        Route::get('/admin/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
         Route::get('/admin/inventory', function () {
             return view('admin.inventory');
