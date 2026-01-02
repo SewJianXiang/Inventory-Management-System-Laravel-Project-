@@ -5,8 +5,45 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category; 
 
-class CategoryController extends Controller
-{
+class CategoryController extends Controller{
+
+    // Show the form to edit an existing category
+    public function edit($id)
+    {
+        $category = Category::findOrFail($id);
+        return view('categories_edit', compact('category'));
+    }
+
+    // Update an existing category
+    public function update(Request $request, $id)
+    {
+        $category = Category::findOrFail($id);
+        $request->validate([
+            'name' => 'required|max:255|unique:categories,name,' . $id,
+            'image'=> 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:10240',
+        ]);
+
+        $imagePath = $category->image;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+        }
+
+        $category->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $imagePath,
+        ]);
+
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
+    }
+
+    // Show details of a single category (optional)
+    public function show($id)
+    {
+        $category = Category::findOrFail($id);
+        return view('categories_show', compact('category'));
+    }
+
     public function index()
     {
 
