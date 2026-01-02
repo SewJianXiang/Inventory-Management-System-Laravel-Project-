@@ -8,19 +8,23 @@
         <div class="mb-4 text-green-600">{{ session('success') }}</div>
     @endif
 
+    @if(session('error'))
+        <div class="mb-4 mt-1 text-sm text-red-600">{{ session('error') }}</div>
+    @endif
+
     <form method="POST" action="{{ route('settings.password.update') }}">
         @csrf
 
         <div class="mb-4">
             <label for="current_password" class="block mb-1">Current Password</label>
             <input type="password" name="current_password" id="current_password" class="w-full border rounded p-2">
-            @error('current_password') <span class="text-red-600">{{ $message }}</span> @enderror
+            @error('current_password') <span class="mt-1 text-sm text-red-600">{{ $message }}</span> @enderror
         </div>
 
         <div class="mb-4">
             <label for="new_password" class="block mb-1">New Password</label>
             <input type="password" name="new_password" id="new_password" class="w-full border rounded p-2">
-            @error('new_password') <span class="text-red-600">{{ $message }}</span> @enderror
+            @error('new_password') <span class="mt-1 text-sm text-red-600">{{ $message }}</span> @enderror
         </div>
 
         <div class="mb-4">

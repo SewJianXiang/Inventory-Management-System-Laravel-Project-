@@ -9,7 +9,11 @@
         <div class="mb-4 text-green-600">{{ session('success') }}</div>
     @endif
 
-    <form method="POST" action="{{ route('settings.password.update') }}">
+    @if(session('error'))
+        <div class="mb-4 text-red-600">{{ session('error') }}</div>
+    @endif
+
+    <form method="POST" action="{{ route('user.settings.password.update') }}">
         @csrf
 
         <div class="mb-4">
