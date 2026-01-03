@@ -143,20 +143,5 @@
 
     </div>
 </section>
-
-<!-- ================= LOGOS ================= -->
-<section class="max-w-6xl mx-auto px-6 pb-20">
-    <div class="flex flex-wrap justify-center items-center gap-10 opacity-60">
-
-        <span class="text-lg font-semibold">Microsoft</span>
-        <span class="text-lg font-semibold">airbnb</span>
-        <span class="text-lg font-semibold">Google</span>
-        <span class="text-lg font-semibold">GE</span>
-        <span class="text-lg font-semibold">NETFLIX</span>
-        <span class="text-lg font-semibold">Google Cloud</span>
-
-    </div>
-</section>
-
 </body>
 </html>

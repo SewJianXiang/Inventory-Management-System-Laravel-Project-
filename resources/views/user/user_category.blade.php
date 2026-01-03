@@ -14,7 +14,7 @@
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
 
             @foreach($categories as $category)
-                <a href="{{ route('user_products.index', ['category' => $category->name]) }}"
+                <a href="{{ route('user_products.index', ['category_name' => $category->name]) }}"
                     class="group relative bg-white rounded-xl shadow-sm hover:shadow-lg transition-all transform hover:scale-105 overflow-hidden">
                     
                     <!-- Image with gradient overlay -->
