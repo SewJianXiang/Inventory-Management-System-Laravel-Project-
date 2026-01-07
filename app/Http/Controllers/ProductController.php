@@ -71,7 +71,7 @@ class ProductController extends Controller
             'category'     => 'required|string|max:255',
             'quantity'     => 'required|integer|min:0',
             'price'        => 'required|numeric|min:0',
-            'image'        => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'image'        => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
         ]);
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('products', 'public');
